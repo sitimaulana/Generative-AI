@@ -1,14 +1,16 @@
-import anthropic, os
+import os
+from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
 
-client = anthropic.Anthropic(
-    api_key=os.environ["ANTHROPIC_API_KEY"]
+# Menggunakan OpenRouter sebagai jembatan
+client = OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key=os.environ["OPENROUTER_API_KEY"]
 )
 
 def chat(system: str) -> None:
-    """Simple interactive multi-turn chat loop."""
     history = []
 
     while True:
@@ -22,14 +24,16 @@ def chat(system: str) -> None:
             "content": user_input
         })
 
-        response = client.messages.create(
-            model="claude-sonnet-4-5",
-            max_tokens=1024,
-            system=system,
-            messages=history,
+        # Memanggil Claude lewat OpenRouter
+        response = client.chat.completions.create(
+            model="openrouter/free",
+            messages=[
+                {"role": "system", "content": system},
+                *history
+            ]
         )
 
-        assistant_text = response.content[0].text
+        assistant_text = response.choices[0].message.content
 
         history.append({
             "role": "assistant",

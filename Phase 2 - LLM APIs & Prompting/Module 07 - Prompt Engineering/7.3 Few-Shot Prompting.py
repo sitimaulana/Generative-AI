@@ -1,10 +1,12 @@
-import anthropic, os
+import os
+from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
 
-client = anthropic.Anthropic(
-    api_key=os.environ["ANTHROPIC_API_KEY"]
+client = OpenAI(
+    api_key=os.environ["OPENROUTER_API_KEY"],
+    base_url="https://openrouter.ai/api/v1"
 )
 
 FEW_SHOT_SYSTEM = """You are a data extractor. Given a raw AI
@@ -29,12 +31,14 @@ test_inputs = [
 ]
 
 for text in test_inputs:
-    resp = client.messages.create(
-        model="claude-sonnet-4-5",
+    resp = client.chat.completions.create(
+        model="google/gemma-4-31b-it:free",
         max_tokens=128,
-        system=FEW_SHOT_SYSTEM,
-        messages=[{"role": "user", "content": text}],
+        messages=[
+            {"role": "system", "content": FEW_SHOT_SYSTEM},
+            {"role": "user", "content": text}
+        ],
     )
 
     print(f"Input:{text}")
-    print(f"Output:{resp.content[0].text}\n")
+    print(f"Output:{resp.choices[0].message.content}\n")

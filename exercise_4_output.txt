@@ -1,0 +1,33 @@
+## Retrieval‑Augmented Generation (RAG)
+
+**RAG** is a **hybrid** approach that combines two proven AI technologies:
+
+1. **Retrieval** – a search component that looks up relevant facts or documents from an external knowledge base (vector store, database, web, etc.).
+2. **Generation** – a language model (LLM) that synthesizes those retrieved facts into a natural‑language response.
+
+The two parts work together so that the model can **ground its answers in real, up‑to‑date information** while still being able to paraphrase, infer, and produce fluent prose.
+
+---
+
+### Typical RAG Pipeline
+
+```
+User Query
+   ↓
+[Retriever]                (e.g., dense‑vector similarity, keyword search, graph traversal)
+   ↓
+Relevant passages / documents
+   ↓
+[Context Formatter]  →  Prompt (instruction + retrieved context + question)
+   ↓
+[Generator] (LLM) → Text Answer
+   ↓
+[Post‑processor] (optional: citations, source highlighting)
+```
+
+#### 1. Retrieval
+- **Embedding model** turns the query (and each document) into dense vectors.
+- **Similarity search** (e.g., Faiss, Annoy, HNSW) retrieves the top‑k most relevant vectors.
+- Can be **dense‑only**, **sparse‑only**, or **hybrid** (e.g., BM25 + dense) for complementary coverage.
+- Sources can be:
+  - Document

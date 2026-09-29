@@ -1,10 +1,12 @@
-import anthropic, os
+import os
+from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
 
-client = anthropic.Anthropic(
-    api_key=os.environ["ANTHROPIC_API_KEY"]
+client = OpenAI(
+    api_key=os.environ["OPENROUTER_API_KEY"],
+    base_url="https://openrouter.ai/api/v1"
 )
 
 # Without CoT - model jumps to answer, more likely to be wrong
@@ -28,12 +30,12 @@ for label, prompt in [
     ("CoT", COT_PROMPT),
     ("Zero-shot CoT", ZERO_SHOT_COT)
 ]:
-    resp = client.messages.create(
-        model="claude-sonnet-4-5",
+    resp = client.chat.completions.create(
+        model="google/gemma-4-31b-it:free",
         max_tokens=512,
         messages=[{"role": "user", "content": prompt}],
     )
 
     print(f"==={label} ===")
-    print(resp.content[0].text[:300])
+    print(resp.choices[0].message.content[:300])
     print()
