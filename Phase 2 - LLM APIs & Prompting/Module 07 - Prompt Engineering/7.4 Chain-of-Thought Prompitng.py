@@ -31,11 +31,12 @@ for label, prompt in [
     ("Zero-shot CoT", ZERO_SHOT_COT)
 ]:
     resp = client.chat.completions.create(
-        model="google/gemma-4-31b-it:free",
+        model="nvidia/nemotron-3.5-lightning:free",
         max_tokens=512,
         messages=[{"role": "user", "content": prompt}],
     )
 
     print(f"==={label} ===")
-    print(resp.choices[0].message.content[:300])
+    content = resp.choices[0].message.content or ""
+    print(content[:300])
     print()

@@ -1,33 +1,15 @@
-## Retrieval‑Augmented Generation (RAG)
+**Retrieval-Augmented Generation (RAG)** is an architecture that combines the generative power of large language models (LLMs) with an external information retrieval system. Instead of relying solely on the model’s internal training data, the system first fetches relevant, up-to-date documents and injects them into the prompt before generating an answer.
 
-**RAG** is a **hybrid** approach that combines two proven AI technologies:
+### Why it exists
+Standard LLMs have three key weaknesses:
+- **Stale knowledge**: Training data has a cutoff date.
+- **Hallucinations**: They can confidently invent facts.
+- **No access to private data**: They don’t know your company’s internal documents.
 
-1. **Retrieval** – a search component that looks up relevant facts or documents from an external knowledge base (vector store, database, web, etc.).
-2. **Generation** – a language model (LLM) that synthesizes those retrieved facts into a natural‑language response.
+RAG mitigates these by grounding the generation in retrieved evidence.
 
-The two parts work together so that the model can **ground its answers in real, up‑to‑date information** while still being able to paraphrase, infer, and produce fluent prose.
-
----
-
-### Typical RAG Pipeline
-
-```
-User Query
-   ↓
-[Retriever]                (e.g., dense‑vector similarity, keyword search, graph traversal)
-   ↓
-Relevant passages / documents
-   ↓
-[Context Formatter]  →  Prompt (instruction + retrieved context + question)
-   ↓
-[Generator] (LLM) → Text Answer
-   ↓
-[Post‑processor] (optional: citations, source highlighting)
-```
-
-#### 1. Retrieval
-- **Embedding model** turns the query (and each document) into dense vectors.
-- **Similarity search** (e.g., Faiss, Annoy, HNSW) retrieves the top‑k most relevant vectors.
-- Can be **dense‑only**, **sparse‑only**, or **hybrid** (e.g., BM25 + dense) for complementary coverage.
-- Sources can be:
-  - Document
+### How it works (the pipeline)
+1. **Query**: User asks a question.
+2. **Retrieve**: A retriever (e.g., BM25, vector similarity search) searches a knowledge base—databases, PDFs, websites—for relevant chunks.
+3. **Augment**: The retrieved passages are concatenated with the original query into a new prompt.
+4. **Generate**: The LLM reads the augmented

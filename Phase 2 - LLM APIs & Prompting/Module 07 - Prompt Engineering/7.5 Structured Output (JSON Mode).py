@@ -41,6 +41,25 @@ try:
 except RateLimitError as e:
     print("\n[PERINGATAN] Anda telah kehabisan limit harian gratis OpenRouter (atau OpenAI).")
     print("Silakan tunggu besok agar limit di-reset, atau gunakan layanan berbayar.")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     print("Pesan Asli:", str(e))
 except APIError as e:
     print("\n[PERINGATAN] Terjadi kesalahan pada API penyedia.")

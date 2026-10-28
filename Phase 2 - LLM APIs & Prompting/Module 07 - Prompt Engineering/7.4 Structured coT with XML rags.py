@@ -18,7 +18,7 @@ The final answer only, no reasoning.
 </answer>"""
 
 resp = client.chat.completions.create(
-    model="openrouter/free",
+    model="nvidia/nemotron-3.5-lightning:free",
     max_tokens=512,
     messages=[
         {"role": "system", "content": SYSTEM},
@@ -29,7 +29,7 @@ resp = client.chat.completions.create(
     ],
 )
 
-text = resp.choices[0].message.content
+text = resp.choices[0].message.content or ""
 
 # Extract sections
 thinking = re.search(

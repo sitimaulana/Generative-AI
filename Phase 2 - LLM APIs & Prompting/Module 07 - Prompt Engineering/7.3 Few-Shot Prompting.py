@@ -32,7 +32,7 @@ test_inputs = [
 
 for text in test_inputs:
     resp = client.chat.completions.create(
-        model="google/gemma-4-31b-it:free",
+        model="liquid/lfm-2.5-2.6b:free",
         max_tokens=128,
         messages=[
             {"role": "system", "content": FEW_SHOT_SYSTEM},
