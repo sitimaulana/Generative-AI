@@ -1,4 +1,4 @@
-# 12.4 AutoModel - Loading Models Directly (Halaman 139)
+# 12.4 AutoModel - Loading Models Directly 
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 

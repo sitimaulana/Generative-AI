@@ -1,4 +1,4 @@
-# 13.2 Core Concepts (Halaman 144-145)
+# 13.2 Core Concepts
 from langgraph.graph import StateGraph, START, END
 from typing import TypedDict, Annotated
 import operator

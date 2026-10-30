@@ -1,21 +1,29 @@
-# 11.2 ChromaDB (Halaman 125-128)
+# 11.2 ChromaDB
 import chromadb
-from chromadb.config import Settings
-import numpy as np
 import os
 from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
 
-openai_client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+openrouter_api_key = os.environ.get("OPENROUTER_API_KEY")
+if not openrouter_api_key:
+    raise RuntimeError("OPENROUTER_API_KEY belum disetel di file .env atau environment.")
+
+openrouter_client = OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key=openrouter_api_key,
+)
 
 def embed(texts: list[str]) -> list[list[float]]:
-    resp = openai_client.embeddings.create(model="text-embedding-3-small", input=texts)
-    return [e.embedding for e in sorted(resp.data, key=lambda x: x.index)]
+    response = openrouter_client.embeddings.create(
+        model="nvidia/nemotron-3.5-embed-1b:free",
+        input=texts,
+    )
+    return [item.embedding for item in response.data]
 
 # Persistent client (saves to disk)
-client = chromadb.PersistentClient(path="/tmp/chroma_db")
+client = chromadb.PersistentClient(path="chroma_db_openrouter")
 
 # Get or create a collection
 collection = client.get_or_create_collection(
@@ -36,7 +44,7 @@ metadatas = [{"category": "technique", "index": i} for i in range(len(documents)
 
 if __name__ == "__main__":
     embeddings = embed(documents)
-    collection.add(
+    collection.upsert(
         ids=ids,
         documents=documents,
         embeddings=embeddings,

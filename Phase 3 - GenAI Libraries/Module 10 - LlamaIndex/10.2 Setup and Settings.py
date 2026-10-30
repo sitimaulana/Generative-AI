@@ -1,4 +1,4 @@
-# 10.2 Setup and Settings (Halaman 116)
+# 10.2 Setup and Settings 
 from llama_index.core import Settings
 from llama_index.llms.openai import OpenAI
 from llama_index.embeddings.openai import OpenAIEmbedding

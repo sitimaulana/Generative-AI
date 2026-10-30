@@ -1,4 +1,4 @@
-# 9.7 Conversational Memory (Halaman 110-112)
+# 9.7 Conversational Memory 
 from langchain_core.chat_history import InMemoryChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
@@ -11,7 +11,7 @@ load_dotenv()
 
 llm = ChatOpenAI(
     base_url="https://openrouter.ai/api/v1",
-    model="inclusionai/ling-3.0-flash-sante:free",
+    model="nvidia/nemotron-3.5-super-vl:free ",
     api_key=os.environ.get("OPENROUTER_API_KEY", "your-openrouter-key")
 )
 parser = StrOutputParser()

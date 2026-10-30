@@ -1,4 +1,4 @@
-# 9.5 Output Parsers (Halaman 108-109)
+# 9.5 Output Parsers 
 from langchain_core.output_parsers import StrOutputParser, JsonOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
@@ -11,7 +11,7 @@ load_dotenv()
 
 llm = ChatOpenAI(
     base_url="https://openrouter.ai/api/v1",
-    model="inclusionai/ling-3.0-flash-sante:free",
+    model="nvidia/nemotron-3.5-super-vl:free ",
     api_key=os.environ.get("OPENROUTER_API_KEY", "your-openrouter-key")
 )
 

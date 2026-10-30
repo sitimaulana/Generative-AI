@@ -1,4 +1,4 @@
-# 13.3 ReAct Agent - Reason + Act (Halaman 145-150)
+# 13.3 ReAct Agent - Reason + Act 
 from langgraph.graph import StateGraph, START, END
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, AIMessage, ToolMessage, SystemMessage
@@ -67,9 +67,14 @@ TOOL_SCHEMAS = [
 class ReActState(TypedDict):
     messages: Annotated[list, operator.add]
 
+openrouter_api_key = os.environ.get("OPENROUTER_API_KEY")
+if not openrouter_api_key:
+    raise RuntimeError("OPENROUTER_API_KEY belum disetel.")
+
 llm = ChatOpenAI(
-    model="gpt-4o",
-    api_key=os.environ["OPENAI_API_KEY"],
+    base_url="https://openrouter.ai/api/v1",
+    model="nvidia/nemotron-3.5-lightning:free",
+    api_key=openrouter_api_key,
 ).bind_tools(TOOL_SCHEMAS)
 
 SYSTEM = SystemMessage(content="""You are a helpful AI assistant with access to two tools:

@@ -1,4 +1,4 @@
-# 9.4 LCEL - LangChain Expression Language (Halaman 104-107)
+# 9.4 LCEL - LangChain Expression Language 
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda, RunnableParallel
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
@@ -10,7 +10,7 @@ load_dotenv()
 
 llm = ChatOpenAI(
     base_url="https://openrouter.ai/api/v1",
-    model="inclusionai/ling-3.0-flash-sante:free",
+    model="nvidia/nemotron-3.5-super-vl:free ",
     api_key=os.environ.get("OPENROUTER_API_KEY", "your-openrouter-key")
 )
 parser = StrOutputParser()

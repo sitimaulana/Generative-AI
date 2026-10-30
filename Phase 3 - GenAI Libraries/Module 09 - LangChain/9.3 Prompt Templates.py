@@ -1,4 +1,4 @@
-# 9.3 Prompt Templates (Halaman 103-104)
+# 9.3 Prompt Templates 
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import HumanMessage
 

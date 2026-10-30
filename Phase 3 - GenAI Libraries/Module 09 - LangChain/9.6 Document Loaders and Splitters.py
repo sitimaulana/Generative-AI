@@ -1,4 +1,4 @@
-# 9.6 Document Loaders and Text Splitters (Halaman 109-110)
+# 9.6 Document Loaders and Text Splitters 
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 

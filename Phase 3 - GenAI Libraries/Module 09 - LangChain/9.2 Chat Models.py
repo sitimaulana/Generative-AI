@@ -1,4 +1,4 @@
-# 9.2 Chat Models (Halaman 101-103)
+# 9.2 Chat Models 
 from langchain_openai import ChatOpenAI
 #from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import HumanMessage, SystemMessage

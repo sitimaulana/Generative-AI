@@ -1,11 +1,11 @@
-# 9.8 Building a Full RAG Chain with LangChain (Halaman 112-114)
+# 9.8 Building a Full RAG Chain with LangChain
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.documents import Document
 from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 import os
 from dotenv import load_dotenv
@@ -44,7 +44,7 @@ Context:
 # 5. Chain
 llm = ChatOpenAI(
     base_url="https://openrouter.ai/api/v1",
-    model="inclusionai/ling-3.0-flash-sante:free",
+    model="nvidia/nemotron-3.5-super-vl:free ",
     api_key=os.environ.get("OPENROUTER_API_KEY", "your-openrouter-key")
 )
 parser = StrOutputParser()
